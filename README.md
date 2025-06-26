@@ -1,338 +1,138 @@
-# 抖音视频上传工具
+# 项目功能说明
 
-<div align="center">
-  <img src="static/favicon.svg" width="120" height="120" alt="抖音视频上传工具 Logo">
-  <h3>抖音视频上传工具</h3>
-  <p>一款高效的抖音批量视频上传、管理和编辑工具</p>
-</div>
+## 项目简介
 
-<style>
-.feature-section {
-  margin: 30px 0;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
+本项目是一款面向抖音（Douyin）与 TikTok 平台的视频、图集、直播、评论等多类型数据采集与批量下载工具，支持多账号管理、自动化上传、代理与指纹管理、智能视频编辑等丰富功能。项目完全开源，适用于内容创作者、数据分析师及自动化运营场景。
 
-.feature-title {
-  color: #ff2c55;
-  font-size: 20px;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-}
+---
 
-.feature-title i {
-  margin-right: 8px;
-}
+## 主要功能（详细版）
 
-.feature-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+### 1. 下载抖音/TikTok无水印视频、图集、实况、动图
+- 支持输入单个或批量视频/图集链接，自动识别内容类型（视频、图集、实况动图等）。
+- 自动解析最高画质的无水印下载地址，支持断点续传，避免网络中断导致的重复下载。
+- 支持按作者昵称、作品标题等自动归档文件夹，文件命名安全且可自定义。
+- 支持多线程下载，极大提升批量任务效率。
+- 下载过程自动校验文件完整性，防止损坏。
+- 支持下载动态/静态封面图，便于后续内容管理和二次创作。
 
-.feature-card {
-  flex: 1 1 300px;
-  padding: 15px;
-  border-radius: 6px;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
+### 2. 支持账号发布、喜欢、收藏、合集等多类型作品批量下载
+- 支持通过配置文件批量导入多个账号、合集、收藏夹等信息，自动遍历并下载所有作品。
+- 可自定义筛选条件（如发布时间区间、作品类型等），精准采集目标内容。
+- 支持增量下载，自动跳过已下载内容，节省带宽和存储。
+- 支持多账号并发批量任务，任务进度实时可查，失败自动重试。
+- 支持导出下载记录，便于后续统计和溯源。
 
-.feature-card h4 {
-  color: #333;
-  margin-top: 0;
-  margin-bottom: 10px;
-}
+### 3. 采集评论、账号、热榜、搜索等详细数据
+- 支持采集每个作品的全部评论，包括评论内容、用户昵称、IP归属地、点赞数、回复数等详细字段。
+- 支持采集账号主页信息、粉丝数、作品数、签名、头像等。
+- 支持采集抖音热榜、关键词搜索结果，便于热点追踪和数据分析。
+- 所有采集数据可导出为CSV/XLSX/SQLite等格式，方便二次分析和可视化。
+- 评论采集支持分页、断点续采，适合大体量数据场景。
 
-.feature-card p {
-  color: #666;
-  margin-bottom: 0;
-}
+### 4. 支持多账号批量任务、Cookie智能管理、代理绑定
+- 支持为每个账号分配独立Cookie和代理，账号间完全隔离，提升安全性。
+- Cookie支持手动粘贴、浏览器自动获取，失效自动提醒，保障任务不中断。
+- 多账号任务支持轮询或并发上传/下载，支持断点续传和失败重试。
+- 任务状态实时监控，支持任务暂停、恢复、删除等操作。
+- 代理支持HTTP/HTTPS/SOCKS5多协议，支持账号与代理一一绑定，防止IP被封。
 
-.screenshot {
-  max-width: 100%;
-  border-radius: 6px;
-  margin: 10px 0;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
+### 5. 支持Web UI、终端、API多种交互模式
+- 提供响应式Web UI，支持桌面和移动端，操作直观易用。
+- 支持命令行终端交互，适合自动化脚本和高级用户。
+- 提供标准化API接口，便于与其他系统集成或二次开发。
+- 支持扫码登录、验证码输入等可视化操作，降低使用门槛。
 
-.badges {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-}
+### 6. 智能视频编辑与批量上传，支持断点续传
+- 内置智能视频编辑器，支持视频剪辑、合成、批量处理等功能。
+- 批量上传支持定时发布、账号轮换、风控智能规避，自动跳过已上传内容。
+- 上传任务支持断点续传，随时中断和恢复，适合大批量内容分发。
+- 上传历史完整记录，便于追踪和统计。
 
-.badge {
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: white;
-  background-color: #ff2c55;
-}
-</style>
+### 7. 数据导出支持CSV/XLSX/SQLite多种格式
+- 所有采集和下载数据均可一键导出，支持主流数据分析工具直接读取。
+- 支持自定义导出字段和格式，满足不同业务需求。
 
-<div class="badges">
-  <span class="badge">自动化批量上传</span>
-  <span class="badge">智能指纹管理</span>
-  <span class="badge">代理服务器集成</span>
-  <span class="badge">多账号管理</span>
-</div>
+### 8. 支持浏览器指纹与代理管理，提升账号安全性
+- 支持为每个账号分配独立浏览器指纹，模拟真实用户环境，降低被平台风控风险。
+- 代理管理支持批量添加、测试、分配，状态实时监控，异常自动告警。
 
-## ✨ 主要功能
+### 9. 支持自定义筛选、增量下载、自动跳过已下载内容
+- 支持自定义筛选规则（如发布时间、内容类型、关键词等），精准采集目标内容。
+- 增量下载机制自动识别已下载内容，避免重复采集。
+- 支持自定义文件大小上限，防止异常大文件占用存储。
 
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-key-line"></i> Cookie 管理</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>浏览器模拟登录</h4>
-      <p>点击“生成新Cookie”后，自动弹出浏览器，用户手动扫码或输入账号密码登录抖音，系统自动采集并保存Cookie。</p>
-    </div>
-    <div class="feature-card">
-      <h4>代理支持</h4>
-      <p>可为每个Cookie分配独立代理IP，防止账号关联和风控，支持代理测试和状态显示。</p>
-    </div>
-    <div class="feature-card">
-      <h4>Cookie状态验证</h4>
-      <p>一键检测Cookie是否有效，失效时高亮提示，支持批量验证和过期提醒。</p>
-    </div>
-  </div>
+### 10. 支持多线程下载、文件完整性校验
+- 下载任务自动分配多线程，极大提升下载速度。
+- 每个文件下载后自动校验完整性，发现损坏自动重试。
 
-  **操作流程：**
+### 11. 支持局域网远程访问与服务器部署
+- 支持将服务部署在本地或服务器，局域网内多端访问。
+- 支持Docker一键部署，环境隔离，运维简单。
 
-  ```mermaid
-  flowchart TD
-      A[点击“生成新Cookie”] --> B[弹出浏览器窗口]
-      B --> C[用户扫码/输入账号登录抖音]
-      C --> D[系统自动采集Cookie]
-      D --> E[为Cookie分配代理IP]
-      E --> F[Cookie列表展示]
-      F --> G[一键验证Cookie有效性]
-      G --> H{Cookie有效?}
-      H -- 是 --> I[正常使用]
-      H -- 否 --> J[高亮提示/重新生成]
-  ```
-  - 支持多账号Cookie管理，代理分配，批量验证，过期提醒。
-</div>
+---
 
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-movie-line"></i> 视频管理</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>批量导入</h4>
-      <p>支持ZIP、RAR、7Z压缩包批量导入视频，自动解压并保留原有文件夹结构。</p>
-    </div>
-    <div class="feature-card">
-      <h4>文件树管理</h4>
-      <p>以文件树形式展示本地视频，支持右键全选、批量操作、文件夹管理。</p>
-    </div>
-    <div class="feature-card">
-      <h4>TXT标题支持</h4>
-      <p>自动读取同名TXT文件作为视频标题和描述，提升批量上传效率。</p>
-    </div>
-  </div>
+## 特色功能模块
 
-  **操作流程：**
+### 1. Cookie 管理
+![](img/cookie管理.png)
+- 支持手动粘贴、浏览器自动获取 Cookie
+- Cookie 智能检测与失效自动提醒
+- 支持为每个账号分配独立 Cookie，保障多账号隔离和安全
 
-  ```mermaid
-  flowchart TD
-      A[上传压缩包/本地视频] --> B[自动解压/扫描文件夹]
-      B --> C[文件树结构展示]
-      C --> D[右键全选/多选/清空选择]
-      D --> E[读取同名TXT作为标题/描述]
-      E --> F[已选视频列表展示]
-      F --> G[准备上传/编辑]
-  ```
-  - 支持批量导入、结构化管理、TXT自动配对。
-</div>
+### 2. 上传历史管理
+![](img/上传历史.png)
+- 记录所有上传任务历史，便于追踪与统计
+- 可查看每个账号、每个视频的上传状态、时间、结果
 
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-upload-cloud-line"></i> 视频上传</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>多任务队列</h4>
-      <p>可为不同账号创建多个上传任务，支持任务暂停、恢复、删除。</p>
-    </div>
-    <div class="feature-card">
-      <h4>定时发布</h4>
-      <p>每个任务可设置定时发布或立即发布，支持批量定时。</p>
-    </div>
-    <div class="feature-card">
-      <h4>自定义区域</h4>
-      <p>可为每个视频选择不同地理位置，提升推荐效果。</p>
-    </div>
-  </div>
+### 3. 上传设置
+![](img/上传设置.png)
+- 支持定时发布、自动轮换账号、风控智能规避
+- 可自定义上传间隔、定时任务、代理分配等参数
 
-  **操作流程：**
+### 4. 代理管理
+![](img/代理管理.png)
+- 支持 HTTP/HTTPS/SOCKS5 多种代理类型，账号与代理绑定
+- 支持批量添加、测试、分配代理，状态实时监控
+- 代理分配与Cookie绑定，提升账号安全性
 
-  ```mermaid
-  flowchart TD
-      A[选择视频/账号] --> B[设置发布时间（定时/立即）]
-      B --> C[选择地理位置/标签]
-      C --> D[添加到上传队列]
-      D --> E[任务队列管理（暂停/恢复/删除）]
-      E --> F[上传进度实时显示]
-      F --> G[上传完成/失败提示]
-  ```
-  - 支持多账号多任务，定时发布，实时进度反馈。
-</div>
+### 5. 多账号任务管理
+![](img/多账号任务管理.png)
+- 支持多账号并发任务，Cookie 隔离，账号状态监控
+- 支持批量任务的暂停、恢复、删除、断点续传
 
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-settings-line"></i> 视频权限管理</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>远程视频列表</h4>
-      <p>一键获取账号下所有已上传视频，展示视频状态、发布时间、播放量等数据。</p>
-    </div>
-    <div class="feature-card">
-      <h4>权限修改</h4>
-      <p>批量修改视频公开/私密/仅好友可见等权限，支持一键全选。</p>
-    </div>
-    <div class="feature-card">
-      <h4>视频删除</h4>
-      <p>批量或单独删除已上传视频，支持进度反馈和失败重试。</p>
-    </div>
-  </div>
+### 6. 智能视频编辑器
+![](img/智能视频编辑器.png)
+- 提供视频剪辑、合成、批量处理等智能编辑功能
+- 支持多种视频格式导入导出，适合内容二次创作
 
-  **操作流程：**
+### 7. 浏览器指纹管理
+![](img/浏览器指纹管理.png)
+- 管理与模拟浏览器指纹，提升账号安全性与防封能力
+- 支持为每个账号分配独立指纹，降低被平台检测风险
 
-  ```mermaid
-  flowchart TD
-      A[获取远程视频列表] --> B[展示视频数据（状态/播放量等）]
-      B --> C[批量选择视频]
-      C --> D[设置权限（公开/私密/好友）]
-      C --> E[批量删除]
-      D --> F[权限修改进度反馈]
-      E --> G[删除进度反馈]
-      F & G --> H[操作完成/失败提示]
-  ```
-  - 支持批量权限管理、删除、进度反馈。
-</div>
+### 8. 视频管理
+![](img/视频管理.png)
+- 支持视频批量管理、标签归类、状态追踪
+- 可对视频进行批量操作，如重命名、归档、导出等
 
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-video-edit-line"></i> 视频编辑</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>在线编辑</h4>
-      <p>支持在线视频剪切、调速、添加滤镜、特效等操作，所见即所得。</p>
-    </div>
-    <div class="feature-card">
-      <h4>视频倒放</h4>
-      <p>一键生成倒放视频，适合创意内容制作。</p>
-    </div>
-    <div class="feature-card">
-      <h4>自定义参数</h4>
-      <p>支持高级FFmpeg参数，满足专业用户需求。</p>
-    </div>
-  </div>
+### 9. 视频删除管理
+![](img/视频删除管理.png)
+- 支持批量删除已上传视频，便于内容合规与运营
+- 删除操作有日志记录，防止误删
 
-  **操作流程：**
+### 10. 视频权限设置
+![](img/视频权限设置.png)
+- 支持批量设置视频公开/私密权限，灵活控制内容曝光
+- 可一键切换视频权限，适应不同运营需求
 
-  ```mermaid
-  flowchart TD
-      A[选择视频] --> B[剪切/倒放/调速/滤镜/特效]
-      B --> C[实时预览效果]
-      C --> D[保存新视频]
-      D --> E[导出/上传]
-  ```
-  - 支持多种编辑方式，实时预览，编辑后可直接上传。
-</div>
+---
 
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-search-line"></i> 内容爬取</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>视频搜索</h4>
-      <p>按关键词、用户、热门榜单、链接等多种方式爬取抖音内容。</p>
-    </div>
-    <div class="feature-card">
-      <h4>结果展示</h4>
-      <p>爬取结果以表格/卡片形式展示，支持筛选、排序、批量操作。</p>
-    </div>
-    <div class="feature-card">
-      <h4>批量下载/导出</h4>
-      <p>支持一键批量下载爬取到的视频，或导出为Excel/CSV。</p>
-    </div>
-  </div>
+## 典型使用场景
 
-  **操作流程：**
+- **内容创作者**：批量采集热门视频、自动化上传、智能编辑与管理内容
+- **数据分析师**：采集评论、账号、热榜等多维度数据，导出分析
+- **新媒体运营**：多账号矩阵管理，自动化内容分发与风控
+- **自动化脚本开发者**：通过 API/Web UI 接口集成到自有系统
 
-  ```mermaid
-  flowchart TD
-      A[输入关键词/用户/链接/热门] --> B[发起爬取请求]
-      B --> C[获取内容数据]
-      C --> D[表格/卡片展示结果]
-      D --> E[筛选/排序/批量选择]
-      E --> F[批量下载/导出]
-  ```
-  - 支持多种爬取方式，结果可批量下载或导出。
-</div>
-
-<div class="feature-section">
-  <h3 class="feature-title"><i class="ri-download-line"></i> 视频下载</h3>
-  <div class="feature-content">
-    <div class="feature-card">
-      <h4>批量下载</h4>
-      <p>支持批量下载爬取或搜索到的视频，自动去除水印，高清保存。</p>
-    </div>
-    <div class="feature-card">
-      <h4>下载进度</h4>
-      <p>实时显示每个视频的下载进度、速度、状态。</p>
-    </div>
-    <div class="feature-card">
-      <h4>自动导入</h4>
-      <p>下载完成后自动导入到本地视频库，便于后续管理和上传。</p>
-    </div>
-  </div>
-
-  **操作流程：**
-
-  ```mermaid
-  flowchart TD
-      A[选择要下载的视频] --> B[批量发起下载任务]
-      B --> C[实时显示进度/状态]
-      C --> D[下载完成后自动导入视频库]
-      D --> E[可直接管理/上传]
-  ```
-  - 支持批量下载、进度监控、自动导入。
-</div>
-
-## 🛠️ 快速开始
-
-### 本地运行
-```bash
-# 安装依赖
-pip install -r requirements.txt
-
-# 启动服务
-python app.py
-```
-
-### Docker 运行
-```bash
-# 构建并启动容器
-docker-compose up -d
-```
-
-## 🔧 配置
-
-首次运行后，访问：
-- 主页: http://localhost:5000/
-- 管理员页面: http://localhost:5000/admin
-- 默认用户: admin
-- 默认密码: admin
-
-## 📋 系统要求
-
-- Python 3.8+
-- FFmpeg (视频处理)
-- 浏览器 (Chrome/Firefox)
-- 稳定的网络连接
-
-## 📝 注意事项
-
-- 请遵守抖音平台规则，合理使用本工具
-- 建议使用代理IP，避免频繁操作导致账号风控
-- 定时发布功能需要保持程序运行 
+---
