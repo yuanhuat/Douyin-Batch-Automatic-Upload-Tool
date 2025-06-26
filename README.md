@@ -298,3 +298,41 @@
   ```
   - 支持批量下载、进度监控、自动导入。
 </div>
+
+## 🛠️ 快速开始
+
+### 本地运行
+```bash
+# 安装依赖
+pip install -r requirements.txt
+
+# 启动服务
+python app.py
+```
+
+### Docker 运行
+```bash
+# 构建并启动容器
+docker-compose up -d
+```
+
+## 🔧 配置
+
+首次运行后，访问：
+- 主页: http://localhost:5000/
+- 管理员页面: http://localhost:5000/admin
+- 默认用户: admin
+- 默认密码: admin
+
+## 📋 系统要求
+
+- Python 3.8+
+- FFmpeg (视频处理)
+- 浏览器 (Chrome/Firefox)
+- 稳定的网络连接
+
+## 📝 注意事项
+
+- 请遵守抖音平台规则，合理使用本工具
+- 建议使用代理IP，避免频繁操作导致账号风控
+- 定时发布功能需要保持程序运行 
